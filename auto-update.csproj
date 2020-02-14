@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <DebugType>None</DebugType>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>AutoUpdate</AssemblyName>
+    <RootNamespace>KAG</RootNamespace>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartupObject>KAG.AutoUpdate</StartupObject>
+  </PropertyGroup>
+
+</Project>
