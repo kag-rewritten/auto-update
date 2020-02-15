@@ -16,7 +16,7 @@ script:
   - ls
   - cd bin
   - ls
-  - cd Mac
+  - cd Release
   - ls
 
 before_deploy:
