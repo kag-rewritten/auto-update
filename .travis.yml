@@ -10,9 +10,9 @@ env: ZIP_NAME="AutoUpdate"
 
 script:
   - dotnet restore
-  - dotnet publish /p:PublishProfile=Properties\PublishProfiles\Windows.pubxml
-  - dotnet publish /p:PublishProfile=Properties\PublishProfiles\Linux.pubxml
-  - dotnet publish /p:PublishProfile=Properties\PublishProfiles\Mac.pubxml
+  - dotnet publish /p:DeployOnBuild=true -c Release /p:PublishProfile=Properties\PublishProfiles\Windows.pubxml
+  - dotnet publish /p:DeployOnBuild=true -c Release /p:PublishProfile=Properties\PublishProfiles\Linux.pubxml
+  - dotnet publish /p:DeployOnBuild=true -c Release /p:PublishProfile=Properties\PublishProfiles\Mac.pubxml
 
 before_deploy:
   - zip -jr "${ZIP_NAME}-mac.zip" bin/Mac
