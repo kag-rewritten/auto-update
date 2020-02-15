@@ -1,0 +1,38 @@
+language: csharp
+dotnet: 3.1.1
+mono: none
+
+env: ZIP_NAME="AutoUpdate"
+
+script:
+  - dotnet restore
+  - dotnet publish /p:PublishProfile=Properties\PublishProfiles\Windows.pubxml
+  - dotnet publish /p:PublishProfile=Properties\PublishProfiles\Linux.pubxml
+  - dotnet publish /p:PublishProfile=Properties\PublishProfiles\Mac.pubxml
+
+before_deploy:
+  - zip -jr "${ZIP_NAME}-mac.zip" bin/Mac
+  - zip -jr "${ZIP_NAME}-linux.zip" bin/Linux
+  - zip -jr "${ZIP_NAME}-windows.zip" bin/Windows
+
+deploy:
+- provider: releases
+  skip_cleanup: true
+  token: $GITHUB_TOKEN
+  file:
+    - "${ZIP_NAME}-mac.zip"
+    - "${ZIP_NAME}-linux.zip"
+    - "${ZIP_NAME}-windows.zip"
+  on:
+    branch: master
+    tags: true
+
+after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $DISCORD_WEBHOOK_URL
+  
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $DISCORD_WEBHOOK_URL
