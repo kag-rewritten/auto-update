@@ -15,9 +15,9 @@ script:
   - dotnet publish /p:PublishProfile=Properties\PublishProfiles\Mac.pubxml
 
 before_deploy:
-  - zip -jr "${ZIP_NAME}-mac.zip" . -i bin/Mac
-  - zip -jr "${ZIP_NAME}-linux.zip" . -i bin/Linux
-  - zip -jr "${ZIP_NAME}-windows.zip" . -i bin/Windows
+  - zip -jr "${ZIP_NAME}-mac.zip" bin/Mac
+  - zip -jr "${ZIP_NAME}-linux.zip" bin/Linux
+  - zip -jr "${ZIP_NAME}-windows.zip" bin/Windows
 
 deploy:
 - provider: releases
